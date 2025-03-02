@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ksk432.github.io/static/css/main.28997236.css",
+    "main.js": "/ksk432.github.io/static/js/main.fab4cc1c.js",
+    "static/js/453.aac68abc.chunk.js": "/ksk432.github.io/static/js/453.aac68abc.chunk.js",
+    "index.html": "/ksk432.github.io/index.html",
+    "main.28997236.css.map": "/ksk432.github.io/static/css/main.28997236.css.map",
+    "main.fab4cc1c.js.map": "/ksk432.github.io/static/js/main.fab4cc1c.js.map",
+    "453.aac68abc.chunk.js.map": "/ksk432.github.io/static/js/453.aac68abc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.28997236.css",
+    "static/js/main.fab4cc1c.js"
+  ]
+}
