@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -20,7 +21,7 @@
     "rm": "rm -rf docs",
     "mv": "mv build docs",
     "git": "git add . && git commit && git push origin master",
-    "deploy": "npm run rm && npm run build && npm run mv && npm run git",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
