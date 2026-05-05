@@ -1,0 +1,51 @@
+[
+  {
+    "id": "project-experience-emergence-interface",
+    "type": "research_projects",
+    "title": {
+      "ja": "人間が「いいな」と感じた体験の創発を支援するインターフェース研究",
+      "en": "Interfaces for Supporting the Emergence, Recall, and Recording of Meaningful Experiences"
+    },
+    "role": "Researcher",
+    "startYear": 2024,
+    "endYear": null,
+    "summary": "人間が「いいな」と感じた体験の創出・想起・記録を手助けするインターフェースの開発と、それに関わる基礎的な検討を行う。",
+    "researchQuestions": [
+      {
+        "id": "T1",
+        "title": "体性感覚刺激インターフェースのモードレスデザイン",
+        "question": "どのように人間の身体に刺激を送ることで、体験している感覚を誘発することができるのだろうか。",
+        "keywords": ["somatosensory stimulation", "embodied interaction", "modeless interface"]
+      },
+      {
+        "id": "T2",
+        "title": "思い出との再接続を促すユビキタスインターフェース",
+        "question": "ユーザーが過去の思い出と再びつながれるよう、さりげなく促すインターフェースをどのように設計すればよいか。",
+        "keywords": ["behavior modeling", "ubiquitous systems", "memory cueing"]
+      },
+      {
+        "id": "T3",
+        "title": "目標達成を支援する人間拡張システム",
+        "question": "目標の達成を促進するために、人間が本来備えている能力や特性を強化する計算機システムをどのように設計すればよいだろうか。",
+        "keywords": ["artificial intelligence", "human augmentation", "goal support"]
+      }
+    ],
+    "relatedInterests": [
+      "Science of Science",
+      "media technology criticism",
+      "artificial life experiments"
+    ],
+    "tags": [
+      "HCI",
+      "experience design",
+      "somatosensory interface",
+      "ubiquitous computing",
+      "human augmentation"
+    ],
+    "visibility": "public",
+    "source": {
+      "system": "manual",
+      "researchmapId": null
+    }
+  }
+]

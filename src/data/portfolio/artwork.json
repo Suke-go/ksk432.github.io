@@ -1,0 +1,39 @@
+[
+  {
+    "id": "artwork-memory-fragments",
+    "title": "Memory Fragments",
+    "fileName": "memory_fragments.webgl",
+    "kind": "webgl",
+    "year": 2025,
+    "description": "Interactive visual work about fragmented memory.",
+    "visibility": "public"
+  },
+  {
+    "id": "artwork-digital-echo",
+    "title": "Digital Echo",
+    "fileName": "digital_echo.js",
+    "kind": "creative-coding",
+    "year": 2025,
+    "description": "Creative coding record for audiovisual interface experiments.",
+    "visibility": "public"
+  },
+  {
+    "id": "artwork-neural-pathways",
+    "title": "Neural Pathways",
+    "fileName": "neural_pathways.p5",
+    "kind": "p5",
+    "year": 2025,
+    "description": "p5 sketch record for networked memory visuals.",
+    "visibility": "public"
+  },
+  {
+    "id": "artwork-ghost-memories",
+    "title": "Ghost Memories",
+    "fileName": "ghost_memories.p5",
+    "kind": "p5",
+    "year": 2025,
+    "description": "Hidden artwork record.",
+    "visibility": "hidden",
+    "unlockFlag": "secretProjectVisible"
+  }
+]

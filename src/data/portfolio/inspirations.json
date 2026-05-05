@@ -1,0 +1,20 @@
+[
+  {
+    "id": "inspiration-nier",
+    "fileName": "nier_automata.txt",
+    "title": "NieR: Automata",
+    "description": "Action RPG directed by Yoko Taro. Useful reference for layered interfaces, fragmented memory, and system-like storytelling."
+  },
+  {
+    "id": "inspiration-gits",
+    "fileName": "ghost_in_the_shell.txt",
+    "title": "Ghost in the Shell",
+    "description": "Cyberpunk work exploring networked identity, embodiment, and human-machine boundaries."
+  },
+  {
+    "id": "inspiration-harmony",
+    "fileName": "harmony.txt",
+    "title": "Harmony",
+    "description": "Novel by Project Itoh, set in a world of constant health monitoring and socialized wellness."
+  }
+]

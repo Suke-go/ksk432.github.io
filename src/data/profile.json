@@ -1,0 +1,32 @@
+{
+  "id": "kosuke-shimizu-profile",
+  "name": "Kosuke Shimizu",
+  "portfolioTheme": {
+    "ja": "人間が「いいな」と感じた体験の創発を支援するインターフェース",
+    "en": "Interfaces for Supporting the Emergence of Meaningful Experiences"
+  },
+  "overview": "人間が価値を感じる体験の創出・想起・記録を支援するインターフェースを中心に、体性感覚刺激、ユビキタスシステム、行動モデリング、人工知能、人間拡張にまたがる研究と制作を行う。",
+  "researchStance": "論じようとする現象や体験を構成する重要な変数や切り口を、観測・実験・考察を通じて捉える。その上で、それらを工学的に扱える変数へ落とし込み、再現可能なインターフェースとして設計・実装することを重視する。",
+  "researchThreads": [
+    {
+      "id": "T1",
+      "label": "Somatosensory Interface",
+      "summary": "身体への刺激によって、体験している感覚をどのように誘発できるかを探る。体性感覚刺激インターフェースのモードレスデザインを中心に検討する。"
+    },
+    {
+      "id": "T2",
+      "label": "Memory Reconnection",
+      "summary": "ユーザーが過去の思い出と再びつながれるよう、さりげなく促すインターフェースを設計する。行動モデリングやユビキタスシステムを手がかりにする。"
+    },
+    {
+      "id": "T3",
+      "label": "Human Augmentation",
+      "summary": "目標達成を促進するために、人間が本来備えている能力や特性を強化する計算機システムを設計する。人工知能や人間拡張の観点から検討する。"
+    }
+  ],
+  "sideInterests": [
+    "科学そのものの構造分析（Science of Science）",
+    "メディア技術そのものの批評",
+    "人工生命の実験"
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "presentation-2024-hci-proposal",
+    "type": "presentations",
+    "title": {
+      "ja": "記憶構造に基づくインターフェース設計",
+      "en": "Interface Design Based on Memory Structures"
+    },
+    "presenters": ["Kosuke Shimizu"],
+    "year": 2024,
+    "event": "",
+    "url": "",
+    "tags": ["HCI", "design research"],
+    "visibility": "public",
+    "source": {
+      "system": "manual",
+      "researchmapId": null
+    }
+  }
+]

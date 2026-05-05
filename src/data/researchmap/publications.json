@@ -1,0 +1,22 @@
+[
+  {
+    "id": "paper-2024-memory-interface",
+    "type": "published_papers",
+    "title": {
+      "ja": "記憶をインターフェースとして扱うHCI研究",
+      "en": "Memory as Interface: Exploring New HCI Paradigms"
+    },
+    "authors": ["Kosuke Shimizu"],
+    "year": 2024,
+    "journal": "",
+    "doi": "",
+    "url": "",
+    "abstract": "This research proposes a novel framework for human-computer interaction based on the analogy between digital interfaces and human memory structures.",
+    "tags": ["HCI", "memory", "interface"],
+    "visibility": "public",
+    "source": {
+      "system": "manual",
+      "researchmapId": null
+    }
+  }
+]

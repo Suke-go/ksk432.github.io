@@ -1,12 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, ExternalLink, Terminal } from 'lucide-react';
+import { Menu, X, Terminal } from 'lucide-react';
+import { executeTerminalCommand } from './terminal/terminalCommands';
+import { ROOT_DIRECTORY, welcomeOutput } from './terminal/terminalDatabase';
+import profile from './data/profile.json';
+import publications from './data/researchmap/publications.json';
+import presentations from './data/researchmap/presentations.json';
+import researchProjects from './data/researchmap/researchProjects.json';
+import artwork from './data/portfolio/artwork.json';
+import skills from './data/portfolio/skills.json';
+import inspirations from './data/portfolio/inspirations.json';
+import scores from './data/portfolio/scores.json';
+import contact from './data/portfolio/contact.json';
 import './App.css';
+
+const textValue = (value) => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  return value?.ja || value?.en || '';
+};
+
+const SectionHeading = ({ kicker, title, children }) => (
+  <div className="cv-section-heading">
+    <p className="cv-kicker">{kicker}</p>
+    <h2>{title}</h2>
+    {children && <p className="cv-section-lead">{children}</p>}
+  </div>
+);
+
+const RecordList = ({ records, getTitle, getMeta, getBody }) => (
+  <div className="cv-record-list">
+    {records.map((record) => (
+      <article className="cv-record" key={record.id}>
+        <div>
+          <h3>{getTitle(record)}</h3>
+          {getMeta(record) && <p className="cv-record-meta">{getMeta(record)}</p>}
+        </div>
+        {getBody(record) && <p>{getBody(record)}</p>}
+      </article>
+    ))}
+  </div>
+);
 
 // P5.js sketch for the interactive background
 const P5Background = () => {
   const canvasRef = useRef(null);
   
   useEffect(() => {
+    const container = canvasRef.current;
     let particles = [];
     
     const sketch = (p) => {
@@ -68,15 +110,15 @@ const P5Background = () => {
     import('https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js')
       .then(p5Module => {
         const p5 = p5Module.default;
-        new p5(sketch, canvasRef.current);
+        new p5(sketch, container);
       })
       .catch(err => console.error('Could not load p5.js', err));
     
     return () => {
       // Cleanup
-      if (canvasRef.current) {
-        while (canvasRef.current.firstChild) {
-          canvasRef.current.removeChild(canvasRef.current.firstChild);
+      if (container) {
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
         }
       }
     };
@@ -93,7 +135,7 @@ const Portfolio = () => {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalInput, setTerminalInput] = useState('');
   const [terminalOutput, setTerminalOutput] = useState([]);
-  const [currentDirectory, setCurrentDirectory] = useState('portfolio');
+  const [currentDirectory, setCurrentDirectory] = useState(ROOT_DIRECTORY);
   const [hiddenContent, setHiddenContent] = useState({
     inspirationsVisible: false,
     secretProjectVisible: false,
@@ -143,12 +185,7 @@ const Portfolio = () => {
   // Show welcome message in terminal
   useEffect(() => {
     if (terminalOpen && terminalOutput.length === 0) {
-      setTerminalOutput([
-        { type: 'system', text: 'NieR OS Terminal [Version 1.0]' },
-        { type: 'system', text: '© 2025 Kosuke Shimizu. All rights reserved.' },
-        { type: 'system', text: 'Type "/help" for available commands.' },
-        { type: 'system', text: '' }
-      ]);
+      setTerminalOutput(welcomeOutput);
     }
   }, [terminalOpen, terminalOutput]);
 
@@ -168,215 +205,42 @@ const Portfolio = () => {
       if (section !== 'home') {
         setCurrentDirectory(section);
       } else {
-        setCurrentDirectory('portfolio');
+        setCurrentDirectory(ROOT_DIRECTORY);
       }
     }
   };
-  
+
   const processTerminalCommand = (command) => {
     const newOutput = [...terminalOutput];
     newOutput.push({ type: 'input', text: command, directory: currentDirectory });
-    
-    // Basic directory navigation
-    if (command.startsWith('cd ')) {
-      const targetDir = command.substring(3).trim();
-      if (targetDir === '..') {
-        // Go up one directory level
-        if (currentDirectory !== 'portfolio') {
-          setCurrentDirectory('portfolio');
-          newOutput.push({ type: 'output', text: 'Changed directory to ~/portfolio' });
-          navigateTo('home');
-        } else {
-          newOutput.push({ type: 'error', text: 'Already at root directory' });
-        }
-      } else if (targetDir === '~' || targetDir === '/') {
-        setCurrentDirectory('portfolio');
-        newOutput.push({ type: 'output', text: 'Changed directory to ~/portfolio' });
-        navigateTo('home');
-      } else if (
-        [
-          'research',
-          'artwork',
-          'publications',
-          'skills',
-          'contact',
-          'scores',
-          'inspirations'
-        ].includes(targetDir)
-      ) {
-        setCurrentDirectory(targetDir);
-        newOutput.push({ type: 'output', text: `Changed directory to ~/portfolio/${targetDir}` });
-        // Always navigate to that section
-        navigateTo(targetDir);
-        
-        // Reveal hidden sections if relevant
-        if (targetDir === 'scores' && !hiddenContent.scoresVisible) {
-          setHiddenContent({ ...hiddenContent, scoresVisible: true });
-          newOutput.push({ type: 'output', text: 'Revealed hidden scores section!' });
-        } else if (targetDir === 'inspirations' && !hiddenContent.inspirationsVisible) {
-          setHiddenContent({ ...hiddenContent, inspirationsVisible: true });
-          newOutput.push({ type: 'output', text: 'Revealed inspirations section!' });
-        }
-      } else {
-        newOutput.push({ type: 'error', text: `Directory not found: ${targetDir}` });
-      }
-    }
-    // `ls` command
-    else if (command === 'ls' || command === 'dir') {
-      if (currentDirectory === 'portfolio') {
-        newOutput.push({
-          type: 'output',
-          text: `drwxr-xr-x  research/\ndrwxr-xr-x  artwork/\ndrwxr-xr-x  publications/\ndrwxr-xr-x  skills/\ndrwxr-xr-x  contact/\n${
-            hiddenContent.inspirationsVisible ? 'drwxr-xr-x  inspirations/\n' : ''
-          }${hiddenContent.scoresVisible ? 'drwxr-xr-x  scores/' : ''}`
-        });
-      } else if (currentDirectory === 'research') {
-        newOutput.push({
-          type: 'output',
-          text: `-rw-r--r--  memory_augmentation.pdf\n-rw-r--r--  parametric_design.md\n-rw-r--r--  hci_proposal_2024.txt`
-        });
-      } else if (currentDirectory === 'artwork') {
-        newOutput.push({
-          type: 'output',
-          text: `-rw-r--r--  memory_fragments.webgl\n-rw-r--r--  digital_echo.js\n-rw-r--r--  neural_pathways.p5${
-            hiddenContent.secretProjectVisible ? '\n-rw-r--r--  ghost_memories.p5 [HIDDEN]' : ''
-          }`
-        });
-      } else if (currentDirectory === 'scores') {
-        newOutput.push({
-          type: 'output',
-          text: `-rw-r--r--  nier_weight_of_the_world.mid\n-rw-r--r--  ghost_in_the_shell_opening.mp3\n-rw-r--r--  harmony_theme.wav`
-        });
-      } else {
-        newOutput.push({ type: 'output', text: 'No files in this directory' });
-      }
-    }
-    // `pwd`
-    else if (command === 'pwd') {
-      newOutput.push({
-        type: 'output',
-        text: `/home/kosuke/portfolio${
-          currentDirectory !== 'portfolio' ? '/' + currentDirectory : ''
-        }`
-      });
-    }
-    // Terminal reveal commands
-    else if (command.startsWith('/show:inspirations')) {
-      newOutput.push({ type: 'output', text: 'Revealing inspirations section...' });
-      setHiddenContent({ ...hiddenContent, inspirationsVisible: true });
-      setActiveSection('inspirations');
-    } else if (command.startsWith('/show:projects')) {
-      newOutput.push({ type: 'output', text: 'Revealing hidden projects...' });
-      setHiddenContent({ ...hiddenContent, secretProjectVisible: true });
-      setActiveSection('artwork');
-    } else if (command.startsWith('/show:scores')) {
-      newOutput.push({ type: 'output', text: 'Revealing music scores section...' });
-      setHiddenContent({ ...hiddenContent, scoresVisible: true });
-      setActiveSection('scores');
-    }
-    // /help
-    else if (command.startsWith('/help')) {
-      newOutput.push({
-        type: 'output',
-        text: `Available commands:
-  /show:inspirations - View inspiration sources
-  /show:projects - Reveal hidden projects
-  /show:scores - Reveal music scores
-  /about:nier - NieR Automata info
-  /about:gits - Ghost in the Shell info
-  /about:harmony - Project Itoh info
-  /clear - Clear terminal
-  /matrix - ???
 
-Standard Unix commands:
-  cd [directory] - Change directory
-  ls - List files
-  pwd - Print working directory
-  cat [file] - View file contents`
-      });
-    }
-    // /about
-    else if (command.startsWith('/about:nier')) {
-      newOutput.push({
-        type: 'output',
-        text: 'NieR: Automata - Action RPG developed by PlatinumGames, directed by Yoko Taro. Known for its unique storytelling, multiple endings, and philosophical themes exploring existence, consciousness, and memory.'
-      });
-    } else if (command.startsWith('/about:gits')) {
-      newOutput.push({
-        type: 'output',
-        text: 'Ghost in the Shell - Cyberpunk franchise created by Masamune Shirow, exploring themes of human consciousness in a networked world, the boundary between human and machine, and the nature of identity.'
-      });
-    } else if (command.startsWith('/about:harmony')) {
-      newOutput.push({
-        type: 'output',
-        text: 'Harmony - Novel by Project Itoh (Satoshi Itō) set in a utopian world where human health is constantly monitored. Explores themes of free will, the value of life, and the nature of consciousness.'
-      });
-    }
-    // cat [file]
-    else if (command.startsWith('cat ')) {
-      const fileName = command.substring(4).trim();
-      // Only allow viewing files in the current directory
-      if (
-        currentDirectory === 'research' &&
-        ['memory_augmentation.pdf', 'parametric_design.md', 'hci_proposal_2024.txt'].includes(
-          fileName
-        )
-      ) {
-        if (fileName === 'hci_proposal_2024.txt') {
-          newOutput.push({
-            type: 'output',
-            text: `TITLE: Memory as Interface: Exploring New HCI Paradigms
+    const result = executeTerminalCommand(command, {
+      currentDirectory,
+      hiddenContent
+    });
 
-ABSTRACT:
-This research proposes a novel framework for human-computer interaction based on the analogy between digital interfaces and human memory structures. Drawing from cognitive psychology and parametric design principles, we aim to develop interfaces that adapt to individual memory patterns and cognitive processes...`
-          });
-        } else {
-          newOutput.push({
-            type: 'output',
-            text: `Viewing ${fileName}... [File contents would appear here]`
-          });
-        }
-      } else if (
-        currentDirectory === 'artwork' &&
-        ['memory_fragments.webgl', 'digital_echo.js', 'neural_pathways.p5', 'ghost_memories.p5'].includes(
-          fileName
-        )
-      ) {
-        if (fileName === 'ghost_memories.p5' && !hiddenContent.secretProjectVisible) {
-          newOutput.push({ type: 'error', text: 'Access denied: Hidden file' });
-        } else {
-          newOutput.push({
-            type: 'output',
-            text: `Viewing ${fileName}... [File contents would appear here]`
-          });
-        }
-      } else if (
-        currentDirectory === 'scores' &&
-        ['nier_weight_of_the_world.mid', 'ghost_in_the_shell_opening.mp3', 'harmony_theme.wav'].includes(
-          fileName
-        )
-      ) {
-        newOutput.push({
-          type: 'output',
-          text: `Playing ${fileName}... [Audio would play here]`
-        });
-      } else {
-        newOutput.push({ type: 'error', text: `File not found: ${fileName}` });
-      }
-    }
-    // /clear
-    else if (command.startsWith('/clear')) {
-      setTerminalOutput([
-        { type: 'system', text: 'NieR OS Terminal [Version 1.0]' },
-        { type: 'system', text: '© 2025 Kosuke Shimizu. All rights reserved.' },
-        { type: 'system', text: 'Type "/help" for available commands.' },
-        { type: 'system', text: '' }
-      ]);
+    if (result.clear) {
+      setTerminalOutput(welcomeOutput);
+      setTerminalInput('');
       return;
     }
-    // /matrix
-    else if (command.startsWith('/matrix')) {
-      newOutput.push({ type: 'special', text: 'matrix' });
+
+    newOutput.push(...(result.output || []));
+
+    if (result.nextDirectory) {
+      setCurrentDirectory(result.nextDirectory);
+    }
+
+    if (result.nextSection) {
+      setActiveSection(result.nextSection);
+      setMenuOpen(false);
+    }
+
+    if (result.nextHiddenContent) {
+      setHiddenContent(result.nextHiddenContent);
+    }
+
+    if (result.effect === 'matrix') {
       setTimeout(() => {
         const terminalEl = document.querySelector('.terminal-container');
         if (terminalEl) {
@@ -387,14 +251,7 @@ This research proposes a novel framework for human-computer interaction based on
         }
       }, 100);
     }
-    // Unknown command
-    else {
-      newOutput.push({
-        type: 'error',
-        text: `Command not recognized: ${command}. Type /help for available commands.`
-      });
-    }
-    
+
     setTerminalOutput(newOutput);
     setTerminalInput('');
   };
@@ -695,7 +552,7 @@ This research proposes a novel framework for human-computer interaction based on
                 {terminalOutput.map((item, index) => (
                   <div
                     key={index}
-                    className={`mb-1 text-sm ${
+                    className={`terminal-line mb-1 text-sm ${
                       item.type === 'input'
                         ? 'text-green-500'
                         : item.type === 'error'
@@ -750,44 +607,167 @@ This research proposes a novel framework for human-computer interaction based on
 
           <main className="pt-16 container mx-auto px-4">
             {activeSection === 'home' && (
-              <section className="min-h-screen flex flex-col justify-center relative overflow-hidden">
-                {/* ...home section content... */}
+              <section className="cv-page cv-hero-section">
+                <div className="cv-hero-grid">
+                  <div className="cv-hero-main">
+                    <p className="cv-kicker">Portfolio / Curriculum Vitae</p>
+                    <h1>{profile.name}</h1>
+                    <p className="cv-hero-title">{textValue(profile.portfolioTheme)}</p>
+                    <p className="cv-hero-copy">{profile.overview}</p>
+                    <div className="cv-command-strip">
+                      <span>try:</span>
+                      <code>cd profile</code>
+                      <code>cat research_stance.md</code>
+                    </div>
+                  </div>
+                  <aside className="cv-panel">
+                    <h2>Research Stance</h2>
+                    <p>{profile.researchStance}</p>
+                  </aside>
+                </div>
+
+                <div className="cv-thread-grid">
+                  {profile.researchThreads.map((thread) => (
+                    <article className="cv-thread-card" key={thread.id}>
+                      <span>{thread.id}</span>
+                      <h3>{thread.label}</h3>
+                      <p>{thread.summary}</p>
+                    </article>
+                  ))}
+                </div>
+
+                <section className="cv-section-block">
+                  <SectionHeading kicker="Adjacent Work" title="周辺的な関心">
+                    研究テーマの外側で、科学・メディア・人工生命の構造も観察対象にしています。
+                  </SectionHeading>
+                  <div className="cv-tag-row">
+                    {profile.sideInterests.map((interest) => (
+                      <span key={interest}>{interest}</span>
+                    ))}
+                  </div>
+                </section>
               </section>
             )}
             
             {activeSection === 'research' && (
-              <section className="py-16">
-                {/* ...research section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="Research" title="Research Projects">
+                  人間が価値を感じる体験の創出・想起・記録を支援するインターフェースを中心に検討しています。
+                </SectionHeading>
+
+                {researchProjects.map((project) => (
+                  <article className="cv-project" key={project.id}>
+                    <div className="cv-project-header">
+                      <div>
+                        <h3>{textValue(project.title)}</h3>
+                        <p>{project.summary}</p>
+                      </div>
+                      <span>{project.startYear} - Present</span>
+                    </div>
+                    <div className="cv-thread-grid">
+                      {project.researchQuestions.map((question) => (
+                        <article className="cv-thread-card" key={question.id}>
+                          <span>{question.id}</span>
+                          <h4>{question.title}</h4>
+                          <p>{question.question}</p>
+                          <div className="cv-tag-row compact">
+                            {question.keywords.map((keyword) => (
+                              <span key={keyword}>{keyword}</span>
+                            ))}
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+
+                <SectionHeading kicker="Presentations" title="Talks and Presentations" />
+                <RecordList
+                  records={presentations}
+                  getTitle={(record) => textValue(record.title)}
+                  getMeta={(record) => [record.year, record.event].filter(Boolean).join(' / ')}
+                  getBody={(record) => record.tags?.join(', ')}
+                />
               </section>
             )}
             {activeSection === 'publications' && (
-              <section className="py-16">
-                {/* ...publications section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="Researchmap" title="Publications">
+                  Researchmap互換を意識したJSONから表示しています。
+                </SectionHeading>
+                <RecordList
+                  records={publications}
+                  getTitle={(record) => textValue(record.title)}
+                  getMeta={(record) =>
+                    [record.year, record.journal, record.doi].filter(Boolean).join(' / ')
+                  }
+                  getBody={(record) => record.abstract}
+                />
               </section>
             )}
             {activeSection === 'artwork' && (
-              <section className="py-16">
-                {/* ...artwork section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="Creative Work" title="Artwork and Prototypes">
+                  研究の問いに接続する制作・プロトタイプの記録です。
+                </SectionHeading>
+                <RecordList
+                  records={artwork.filter((record) => record.visibility !== 'hidden' || hiddenContent.secretProjectVisible)}
+                  getTitle={(record) => record.title}
+                  getMeta={(record) => [record.year, record.kind, record.fileName].filter(Boolean).join(' / ')}
+                  getBody={(record) => record.description}
+                />
               </section>
             )}
             {activeSection === 'skills' && (
-              <section className="py-16">
-                {/* ...skills section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="Capabilities" title="Skills">
+                  研究・実装・制作を横断するためのスキルセットです。
+                </SectionHeading>
+                <RecordList
+                  records={skills}
+                  getTitle={(record) => record.title}
+                  getMeta={(record) => record.fileName}
+                  getBody={(record) => record.description}
+                />
               </section>
             )}
             {activeSection === 'inspirations' && (
-              <section className="py-16">
-                {/* ...inspirations section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="References" title="Inspirations">
+                  ターミナルから解放される、思想・表現上の参照点です。
+                </SectionHeading>
+                <RecordList
+                  records={inspirations}
+                  getTitle={(record) => record.title}
+                  getMeta={(record) => record.fileName}
+                  getBody={(record) => record.description}
+                />
               </section>
             )}
             {activeSection === 'scores' && (
-              <section className="py-16">
-                {/* ...scores section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="Archive" title="Scores">
+                  音楽・スコアに関する個人的な記録です。
+                </SectionHeading>
+                <RecordList
+                  records={scores}
+                  getTitle={(record) => record.title}
+                  getMeta={(record) => record.fileName}
+                  getBody={(record) => record.description}
+                />
               </section>
             )}
             {activeSection === 'contact' && (
-              <section className="py-16">
-                {/* ...contact section content... */}
+              <section className="cv-page">
+                <SectionHeading kicker="Contact" title="Contact">
+                  連絡先と外部プロフィールはここに集約します。
+                </SectionHeading>
+                <RecordList
+                  records={contact}
+                  getTitle={(record) => record.title}
+                  getMeta={(record) => record.fileName}
+                  getBody={(record) => record.description}
+                />
               </section>
             )}
           </main>
@@ -796,19 +776,19 @@ This research proposes a novel framework for human-computer interaction based on
             <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
               <div className="mb-4 md:mb-0">
                 <p className="text-gray-500 text-sm">
-                  &copy; {new Date().getFullYear()} · Kosuke Shimizu · Human-Computer Interaction
+                  &copy; {new Date().getFullYear()} Kosuke Shimizu / Human-Computer Interaction
                 </p>
               </div>
-              <div className="flex space-x-6">
-                <a href="#" className="text-gray-500 hover:text-white text-sm">
+              <div className="cv-footer-links">
+                <button type="button">
                   Github
-                </a>
-                <a href="#" className="text-gray-500 hover:text-white text-sm">
+                </button>
+                <button type="button">
                   LinkedIn
-                </a>
-                <a href="#" className="text-gray-500 hover:text-white text-sm">
+                </button>
+                <button type="button">
                   Twitter
-                </a>
+                </button>
               </div>
             </div>
           </footer>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "skill-interaction-design",
+    "fileName": "interaction_design.md",
+    "title": "Interaction Design",
+    "description": "HCI, interface prototyping, and user-centered research."
+  },
+  {
+    "id": "skill-creative-coding",
+    "fileName": "creative_coding.md",
+    "title": "Creative Coding",
+    "description": "p5.js, WebGL, audiovisual systems, and interactive sketches."
+  },
+  {
+    "id": "skill-research-methods",
+    "fileName": "research_methods.md",
+    "title": "Research Methods",
+    "description": "Literature review, experiment planning, and qualitative analysis."
+  }
+]
