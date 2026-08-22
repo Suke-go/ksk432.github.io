@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ksk432.github.io/static/css/main.df23e7fe.css",
-    "main.js": "/ksk432.github.io/static/js/main.1c5ec522.js",
+    "main.css": "/ksk432.github.io/static/css/main.7c9254ca.css",
+    "main.js": "/ksk432.github.io/static/js/main.7e036e81.js",
     "static/js/453.aac68abc.chunk.js": "/ksk432.github.io/static/js/453.aac68abc.chunk.js",
     "index.html": "/ksk432.github.io/index.html",
-    "main.df23e7fe.css.map": "/ksk432.github.io/static/css/main.df23e7fe.css.map",
-    "main.1c5ec522.js.map": "/ksk432.github.io/static/js/main.1c5ec522.js.map",
+    "main.7c9254ca.css.map": "/ksk432.github.io/static/css/main.7c9254ca.css.map",
+    "main.7e036e81.js.map": "/ksk432.github.io/static/js/main.7e036e81.js.map",
     "453.aac68abc.chunk.js.map": "/ksk432.github.io/static/js/453.aac68abc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.df23e7fe.css",
-    "static/js/main.1c5ec522.js"
+    "static/css/main.7c9254ca.css",
+    "static/js/main.7e036e81.js"
   ]
 }

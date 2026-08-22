@@ -8,9 +8,11 @@ import presentations from './data/researchmap/presentations.json';
 import researchProjects from './data/researchmap/researchProjects.json';
 import artwork from './data/portfolio/artwork.json';
 import skills from './data/portfolio/skills.json';
+import experience from './data/portfolio/experience.json';
 import inspirations from './data/portfolio/inspirations.json';
 import scores from './data/portfolio/scores.json';
 import contact from './data/portfolio/contact.json';
+import jglobal from './data/jglobal.json';
 import './App.css';
 
 const textValue = (value) => {
@@ -41,6 +43,106 @@ const RecordList = ({ records, getTitle, getMeta, getBody }) => (
       </article>
     ))}
   </div>
+);
+
+const cvNavShortcuts = [
+  { label: 'Research', section: 'research' },
+  { label: 'Publications', section: 'publications' },
+  { label: 'Skills', section: 'skills' },
+  { label: 'Contact', section: 'contact' }
+];
+
+const terminalShortcuts = [
+  { label: 'Profile', command: 'cd profile' },
+  { label: 'Research DB', command: 'cd researchmap' },
+  { label: 'Experience', command: 'cd experience' },
+  { label: 'Artwork', command: 'cd artwork' },
+  { label: 'Unlock Notes', command: '/show:inspirations' }
+];
+
+const TerminalView = ({
+  currentDirectory,
+  terminalInput,
+  terminalOutput,
+  setTerminalInput,
+  processTerminalCommand,
+  onClose
+}) => (
+  <section className="terminal-page">
+    <div className="terminal-page-motion" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div className="terminal-page-shell">
+      <header className="terminal-page-header">
+        <div>
+          <p>Terminal Database</p>
+          <h1>kosuke@tsukuba:~/{currentDirectory}</h1>
+        </div>
+        <button type="button" onClick={onClose}>
+          Return to CV
+        </button>
+      </header>
+
+      <div className="terminal-shortcuts">
+        {terminalShortcuts.map((shortcut) => (
+          <button
+            key={shortcut.command}
+            type="button"
+            onClick={() => processTerminalCommand(shortcut.command)}
+          >
+            {shortcut.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="terminal-page-output">
+        {terminalOutput.map((item, index) => (
+          <div
+            key={index}
+            className={`terminal-line ${
+              item.type === 'input'
+                ? 'terminal-input-line'
+                : item.type === 'error'
+                ? 'terminal-error-line'
+                : item.type === 'system'
+                ? 'terminal-system-line'
+                : item.type === 'special'
+                ? 'hidden'
+                : 'terminal-output-line'
+            }`}
+          >
+            {item.type === 'input'
+              ? `kosuke@tsukuba:~/${item.directory || currentDirectory}$ ${item.text}`
+              : item.text}
+          </div>
+        ))}
+      </div>
+
+      <form
+        className="terminal-page-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (terminalInput.trim()) {
+            processTerminalCommand(terminalInput.trim());
+          }
+        }}
+      >
+        <span>kosuke@tsukuba:~/{currentDirectory}$</span>
+        <input
+          type="text"
+          value={terminalInput}
+          onChange={(e) => setTerminalInput(e.target.value)}
+          placeholder="Type a command... (/help)"
+          autoFocus
+          spellCheck="false"
+          autoComplete="off"
+        />
+      </form>
+    </div>
+  </section>
 );
 
 // P5.js sketch for the interactive background
@@ -193,13 +295,10 @@ const Portfolio = () => {
     setMenuOpen(!menuOpen);
   };
   
-  const toggleTerminal = () => {
-    setTerminalOpen(!terminalOpen);
-  };
-  
   const navigateTo = (section) => {
     if (section) {
       setActiveSection(section);
+      setTerminalOpen(false);
       setMenuOpen(false);
       // Update terminal path to reflect navigation
       if (section !== 'home') {
@@ -208,6 +307,15 @@ const Portfolio = () => {
         setCurrentDirectory(ROOT_DIRECTORY);
       }
     }
+  };
+
+  const openTerminal = () => {
+    setTerminalOpen(true);
+    setMenuOpen(false);
+  };
+
+  const closeTerminal = () => {
+    setTerminalOpen(false);
   };
 
   const processTerminalCommand = (command) => {
@@ -257,7 +365,7 @@ const Portfolio = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gray-800 text-gray-200 font-mono">
+    <div className="site-shell">
       {loading ? (
         <div className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50">
           <div className="loading-container w-full max-w-xl p-10">
@@ -338,7 +446,7 @@ const Portfolio = () => {
           <P5Background />
 
           {/* Header with terminal-style prompt */}
-          <header className="border-b border-gray-700 p-4 flex justify-between items-center fixed w-full bg-gray-800 bg-opacity-90 backdrop-blur-sm z-10">
+          <header className="site-header border-b border-gray-700 p-4 flex justify-between items-center fixed w-full bg-gray-800 bg-opacity-90 backdrop-blur-sm z-10">
             <div className="flex items-center terminal-header">
               <span className="text-gray-400">$</span>
               <span className="ml-2 text-gray-100 font-semibold">ksk432@:</span>
@@ -350,7 +458,7 @@ const Portfolio = () => {
             {/* Terminal toggle button */}
             <div className="flex items-center space-x-4">
               <button
-                onClick={toggleTerminal}
+                onClick={openTerminal}
                 className="text-gray-400 hover:text-white flex items-center cursor-pointer"
               >
                 <Terminal size={18} className="mr-2" />
@@ -367,7 +475,7 @@ const Portfolio = () => {
             </div>
 
             {/* Desktop navigation */}
-            <nav className="hidden md:block">
+            <nav className="site-nav hidden md:block">
               <ul className="flex space-x-6">
                 <li>
                   <button
@@ -537,112 +645,110 @@ const Portfolio = () => {
             </div>
           )}
 
-          {/* Terminal Interface */}
-          {terminalOpen && (
-            <div className="fixed bottom-0 right-0 w-full md:w-96 h-72 bg-gray-950 bg-opacity-95 border border-gray-700 z-30 terminal-container overflow-auto">
-              <div className="p-2 border-b border-gray-700 flex justify-between items-center bg-gray-800">
-                <span className="text-xs text-gray-400">
-                  kosuke@tsukuba:~/{currentDirectory}
-                </span>
-                <button onClick={toggleTerminal} className="text-gray-400 hover:text-white">
-                  <X size={14} />
-                </button>
-              </div>
-              <div className="p-2 terminal-output h-48 overflow-y-auto">
-                {terminalOutput.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`terminal-line mb-1 text-sm ${
-                      item.type === 'input'
-                        ? 'text-green-500'
-                        : item.type === 'error'
-                        ? 'text-red-400'
-                        : item.type === 'system'
-                        ? 'text-blue-400'
-                        : item.type === 'special'
-                        ? 'hidden'
-                        : 'text-gray-300'
-                    }`}
-                  >
-                    {item.type === 'input'
-                      ? `kosuke@tsukuba:~/${item.directory || currentDirectory}$ ${item.text}`
-                      : item.text}
-                  </div>
-                ))}
-              </div>
-              <div className="p-2 border-t border-gray-700">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (terminalInput.trim()) {
-                      processTerminalCommand(terminalInput.trim());
-                    }
-                  }}
-                >
-                  <div className="flex items-center">
-                    <span className="text-green-500 mr-2 whitespace-nowrap">
-                      kosuke@tsukuba:~/{currentDirectory}$
-                    </span>
-                    <input
-                      type="text"
-                      value={terminalInput}
-                      onChange={(e) => setTerminalInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && terminalInput.trim()) {
-                          e.preventDefault();
-                          processTerminalCommand(terminalInput.trim());
-                        }
-                      }}
-                      className="bg-transparent border-none outline-none text-white w-full text-sm focus:ring-0"
-                      placeholder="Type a command... (/help)"
-                      autoFocus
-                      spellCheck="false"
-                      autoComplete="off"
-                    />
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-
-          <main className="pt-16 container mx-auto px-4">
+          {terminalOpen ? (
+            <TerminalView
+              currentDirectory={currentDirectory}
+              terminalInput={terminalInput}
+              terminalOutput={terminalOutput}
+              setTerminalInput={setTerminalInput}
+              processTerminalCommand={processTerminalCommand}
+              onClose={closeTerminal}
+            />
+          ) : (
+          <main className="site-main pt-16 container mx-auto px-4">
             {activeSection === 'home' && (
               <section className="cv-page cv-hero-section">
                 <div className="cv-hero-grid">
                   <div className="cv-hero-main">
+                    <div className="cv-motion-field" aria-hidden="true">
+                      <span className="cv-motion-ring"></span>
+                      <span className="cv-motion-scan"></span>
+                      <span className="cv-motion-cursor"></span>
+                    </div>
                     <p className="cv-kicker">Portfolio / Curriculum Vitae</p>
                     <h1>{profile.name}</h1>
-                    <p className="cv-hero-title">{textValue(profile.portfolioTheme)}</p>
-                    <p className="cv-hero-copy">{profile.overview}</p>
+                    <p className="cv-hero-title">Human-Computer Interaction Researcher</p>
+                    <p className="cv-hero-copy">{jglobal.affiliation}</p>
+                    <div className="cv-terminal-note">
+                      <strong>Terminal layer</strong>
+                      <p>
+                        This page is the compact CV. Open the terminal to explore additional records,
+                        hidden notes, project files, and research materials that are not shown here.
+                      </p>
+                    </div>
                     <div className="cv-command-strip">
-                      <span>try:</span>
+                      <span>try</span>
                       <code>cd profile</code>
                       <code>cat research_stance.md</code>
+                      <code>cd experience</code>
                     </div>
                   </div>
                   <aside className="cv-panel">
-                    <h2>Research Stance</h2>
-                    <p>{profile.researchStance}</p>
+                    <h2>Compact CV</h2>
+                    <p>
+                      The default page is intentionally simple. The terminal keeps the playful
+                      database layer for deeper records, experimental notes, and hidden sections.
+                    </p>
+                    <div className="cv-nav-strip">
+                      {cvNavShortcuts.map((shortcut) => (
+                        <button
+                          key={shortcut.section}
+                          type="button"
+                          onClick={() => navigateTo(shortcut.section)}
+                        >
+                          {shortcut.label}
+                        </button>
+                      ))}
+                      <button type="button" onClick={openTerminal}>
+                        Open Terminal
+                      </button>
+                    </div>
                   </aside>
                 </div>
 
                 <div className="cv-thread-grid">
-                  {profile.researchThreads.map((thread) => (
-                    <article className="cv-thread-card" key={thread.id}>
-                      <span>{thread.id}</span>
-                      <h3>{thread.label}</h3>
-                      <p>{thread.summary}</p>
-                    </article>
-                  ))}
+                  <article className="cv-thread-card">
+                    <span>Fields</span>
+                    <h3>Research Fields</h3>
+                    <p>{jglobal.researchFields.join(' / ')}</p>
+                  </article>
+                  <article className="cv-thread-card">
+                    <span>Keywords</span>
+                    <h3>Research Keywords</h3>
+                    <p>{jglobal.researchKeywords.join(' / ')}</p>
+                  </article>
+                  <article className="cv-thread-card">
+                    <span>Source</span>
+                    <h3>J-GLOBAL Profile</h3>
+                    <p>J-GLOBAL ID: {jglobal.jglobalId} / Updated {jglobal.updatedAt}</p>
+                  </article>
                 </div>
 
                 <section className="cv-section-block">
-                  <SectionHeading kicker="Adjacent Work" title="周辺的な関心">
-                    研究テーマの外側で、科学・メディア・人工生命の構造も観察対象にしています。
+                  <SectionHeading kicker="Experience" title="Selected Engineering Work">
+                    Research and creative systems are supported by hands-on backend and infrastructure work.
                   </SectionHeading>
+                  <RecordList
+                    records={experience}
+                    getTitle={(record) => record.title}
+                    getMeta={(record) => [record.period, record.role].filter(Boolean).join(' / ')}
+                    getBody={(record) => record.description}
+                  />
+                </section>
+
+                <section className="cv-section-block">
+                  <SectionHeading kicker="J-GLOBAL" title="Education & Academic Service">
+                    Public profile records synchronized from J-GLOBAL.
+                  </SectionHeading>
+                  <RecordList
+                    records={[...jglobal.education, ...jglobal.career, ...jglobal.service]}
+                    getTitle={(record) => record.title}
+                    getMeta={(record) => record.period}
+                    getBody={() => ''}
+                  />
                   <div className="cv-tag-row">
-                    {profile.sideInterests.map((interest) => (
-                      <span key={interest}>{interest}</span>
+                    {jglobal.memberships.map((membership) => (
+                      <span key={membership}>{membership}</span>
                     ))}
                   </div>
                 </section>
@@ -651,8 +757,19 @@ const Portfolio = () => {
             
             {activeSection === 'research' && (
               <section className="cv-page">
-                <SectionHeading kicker="Research" title="Research Projects">
-                  人間が価値を感じる体験の創出・想起・記録を支援するインターフェースを中心に検討しています。
+                <SectionHeading kicker="J-GLOBAL" title="Competitive Funding">
+                  Funding records synchronized from the public J-GLOBAL profile.
+                </SectionHeading>
+
+                <RecordList
+                  records={jglobal.funding}
+                  getTitle={(record) => record.title}
+                  getMeta={(record) => record.period}
+                  getBody={() => ''}
+                />
+
+                <SectionHeading kicker="Portfolio" title="Research Projects">
+                  Selected ongoing research directions and project records.
                 </SectionHeading>
 
                 {researchProjects.map((project) => (
@@ -678,6 +795,27 @@ const Portfolio = () => {
                         </article>
                       ))}
                     </div>
+
+                    {project.researchQuestions.some((q) => q.selectedWorks?.some((work) => work.year)) && (
+                      <div className="cv-selected-works">
+                        <SectionHeading kicker="Selected Works" title="Selected Research Projects">
+                          各リサーチクエスチョン (T1–T3) ごとに選定したプロジェクトです。
+                        </SectionHeading>
+                        {project.researchQuestions.map((question) => (
+                          question.selectedWorks?.some((work) => work.year) ? (
+                            <div className="cv-track-block" key={`works-${question.id}`}>
+                              <h4>{question.id} — {question.title}</h4>
+                              <RecordList
+                                records={question.selectedWorks.filter((record) => record.year)}
+                                getTitle={(record) => textValue(record.title)}
+                                getMeta={(record) => [record.year, record.role].filter(Boolean).join(' / ')}
+                                getBody={(record) => record.description}
+                              />
+                            </div>
+                          ) : null
+                        ))}
+                      </div>
+                    )}
                   </article>
                 ))}
 
@@ -692,17 +830,30 @@ const Portfolio = () => {
             )}
             {activeSection === 'publications' && (
               <section className="cv-page">
-                <SectionHeading kicker="Researchmap" title="Publications">
-                  Researchmap互換を意識したJSONから表示しています。
+                <SectionHeading kicker="J-GLOBAL" title="Publications">
+                  11 papers and 13 miscellaneous academic contributions, synchronized from J-GLOBAL.
                 </SectionHeading>
-                <RecordList
-                  records={publications}
-                  getTitle={(record) => textValue(record.title)}
-                  getMeta={(record) =>
-                    [record.year, record.journal, record.doi].filter(Boolean).join(' / ')
-                  }
-                  getBody={(record) => record.abstract}
-                />
+                {[
+                  ['published_papers', 'Papers'],
+                  ['misc', 'MISC']
+                ].map(([type, label]) => {
+                  const records = publications.filter((record) => record.type === type);
+                  return (
+                    <div className="cv-track-block" key={type}>
+                      <h3>{label} ({records.length})</h3>
+                      <RecordList
+                        records={records}
+                        getTitle={(record) => textValue(record.title)}
+                        getMeta={(record) =>
+                          [record.authors?.join(', '), record.journal, record.year, record.doi && `DOI: ${record.doi}`]
+                            .filter(Boolean)
+                            .join(' / ')
+                        }
+                        getBody={() => ''}
+                      />
+                    </div>
+                  );
+                })}
               </section>
             )}
             {activeSection === 'artwork' && (
@@ -771,27 +922,30 @@ const Portfolio = () => {
               </section>
             )}
           </main>
+          )}
 
-          <footer className="border-t border-gray-800 py-8 mt-16">
-            <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-              <div className="mb-4 md:mb-0">
-                <p className="text-gray-500 text-sm">
-                  &copy; {new Date().getFullYear()} Kosuke Shimizu / Human-Computer Interaction
-                </p>
+          {!terminalOpen && (
+            <footer className="site-footer border-t border-gray-800 py-8 mt-16">
+              <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+                <div className="mb-4 md:mb-0">
+                  <p className="text-gray-500 text-sm">
+                    &copy; {new Date().getFullYear()} Kosuke Shimizu / Human-Computer Interaction
+                  </p>
+                </div>
+                <div className="cv-footer-links">
+                  <button type="button">
+                    Github
+                  </button>
+                  <button type="button">
+                    LinkedIn
+                  </button>
+                  <button type="button">
+                    Twitter
+                  </button>
+                </div>
               </div>
-              <div className="cv-footer-links">
-                <button type="button">
-                  Github
-                </button>
-                <button type="button">
-                  LinkedIn
-                </button>
-                <button type="button">
-                  Twitter
-                </button>
-              </div>
-            </div>
-          </footer>
+            </footer>
+          )}
         </>
       )}
     </div>

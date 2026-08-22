@@ -1,22 +1,26 @@
 [
-  {
-    "id": "paper-2024-memory-interface",
-    "type": "published_papers",
-    "title": {
-      "ja": "記憶をインターフェースとして扱うHCI研究",
-      "en": "Memory as Interface: Exploring New HCI Paradigms"
-    },
-    "authors": ["Kosuke Shimizu"],
-    "year": 2024,
-    "journal": "",
-    "doi": "",
-    "url": "",
-    "abstract": "This research proposes a novel framework for human-computer interaction based on the analogy between digital interfaces and human memory structures.",
-    "tags": ["HCI", "memory", "interface"],
-    "visibility": "public",
-    "source": {
-      "system": "manual",
-      "researchmapId": null
-    }
-  }
+  {"id":"paper-interspeech-2026","type":"published_papers","title":"Auditory Contrast Networks: Explaining Prominence with a Parsimonious Model","authors":["Kosuke Shimizu","Keiichi Zempo"],"year":2026,"journal":"INTERSPEECH 2026","doi":"","url":"","visibility":"public"},
+  {"id":"paper-icsv32-2026","type":"published_papers","title":"Target-Dependent Cue Rankings in Prosodic Prominence: Comparing Human and CWT Labels","authors":["Kosuke Shimizu","Keiichi Zempo"],"year":2026,"journal":"Proceedings of the 32nd International Congress on Sound and Vibration (ICSV32)","doi":"","url":"","visibility":"public"},
+  {"id":"paper-etra-2026","type":"published_papers","title":"Behavioral Markers of Sustained Viewing in VR Museum Exploration: Head Stability, Gaze Dynamics, and Pupillary Response","authors":["Kosuke Shimizu","Shohei Komatsu","Hidenori Watanave"],"year":2026,"journal":"2026 Symposium on Eye Tracking Research and Applications (ETRA '26)","doi":"10.1145/3797246.3803054","url":"https://doi.org/10.1145/3797246.3803054","visibility":"public"},
+  {"id":"paper-chi-2026","type":"published_papers","title":"Detecting Cross-Area Concept Links in HCI Using Persistent Homology","authors":["Kosuke Shimizu","Shohei Komatsu","Kazuhiro Hayashi","Keiichi Zempo"],"year":2026,"journal":"Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems","doi":"10.1145/3772363.3798751","url":"https://doi.org/10.1145/3772363.3798751","visibility":"public"},
+  {"id":"paper-ah-2026","type":"published_papers","title":"Visceral Resonance: Augmenting Speech Listening with Prominence-Synchronized Electrical Muscle Stimulation","authors":["Kosuke Shimizu","Ron Lian Nicolous Tan","Shogo Fukushima","Keiichi Zempo"],"year":2026,"journal":"The Augmented Humans International Conference 2026","doi":"10.1145/3795011.3797423","url":"https://doi.org/10.1145/3795011.3797423","visibility":"public"},
+  {"id":"paper-adada-2025","type":"published_papers","title":"Face Morphing as a Bridge from Self-Salience to Historical Understanding: A Pilot with Adolescents Viewing a Nagasaki Atomic Bomb Film","authors":["Shohei Komatsu","Kosuke Shimizu","Hidenori Watanave"],"year":2025,"journal":"23rd International Conference of Asia Digital Art and Design Association (ADADA 2025)","doi":"10.20668/adadapic.2025.0_CP0201","url":"https://doi.org/10.20668/adadapic.2025.0_CP0201","visibility":"public"},
+  {"id":"paper-hai-2025","type":"published_papers","title":"The Effect of an Avatar on Gaze Guidance: An Eye-Tracking Study of Historical Photograph Appreciation","authors":["Shohei Komatsu","Kosuke Shimizu","Hidenori Watanave"],"year":2025,"journal":"13th International Conference on Human-Agent Interaction (HAI 2025)","doi":"10.1145/3765766.3765857","url":"https://doi.org/10.1145/3765766.3765857","visibility":"public"},
+  {"id":"paper-his-2025","type":"published_papers","title":"Enhancing Vocabulary Learning by the Representation of the Meaning of Words with Binaural Audio","authors":["Kosuke Shimizu","Shogo Fukushima","Hirokazu Doi","Takeshi Naemura"],"year":2025,"journal":"Transactions of Human Interface Society, 27(4)","doi":"10.11184/his.27.4_249","url":"https://doi.org/10.11184/his.27.4_249","visibility":"public"},
+  {"id":"paper-floating-captions-2025","type":"published_papers","title":"Floating Captions: Eyetracking-based Context-aware Captioning System for Immersive VR Contents","authors":["Kosuke Shimizu","Shohei Komatsu","Hidenori Watanave"],"year":2025,"journal":"Proceedings of the 2025 Symposium on Eye Tracking Research and Applications","doi":"10.1145/3715669.3726816","url":"https://doi.org/10.1145/3715669.3726816","visibility":"public"},
+  {"id":"paper-emotion-overflow-2024","type":"published_papers","title":"Emotion Overflow: An Interactive System to Represent Emotion with Fluid","authors":["Keita Tsuyuguchi","Kosuke Shimizu","Kenji Suzuki"],"year":2024,"journal":"The 37th Annual ACM Symposium on User Interface Software and Technology","doi":"10.1145/3672539.3686779","url":"https://doi.org/10.1145/3672539.3686779","visibility":"public"},
+  {"id":"paper-icce-2022","type":"published_papers","title":"Effects of Binaural Audio on English Vocabulary Learning","authors":["Kosuke Shimizu","Shogo Fukushima","Takeshi Naemura"],"year":2022,"journal":"30th International Conference on Computers in Education (ICCE 2022)","doi":"","url":"","visibility":"public"},
+  {"id":"misc-apmar-2026","type":"misc","title":"Embracing Yourself with a Hug-Based Interface for Heartbeat Awareness Through Sound and Vibration","authors":["Akari Shimabukuro","Kosuke Shimizu","Yuka Maeda","Naoto Wakatsuki","Keiichi Zempo"],"year":2026,"journal":"The 18th Asia-Pacific Workshop on Mixed and Augmented Reality Interactivity","doi":"","url":"","visibility":"public"},
+  {"id":"misc-ah-workshop-2026","type":"misc","title":"Designing Degrees of Freedom in Modality Translation: Agency in Inclusive Augmented Performance","authors":["Kosuke Shimizu"],"year":2026,"journal":"Workshop at the Augmented Humans 2026 Conference: Reimagining Human Augmentation through Disability-Led Performance","doi":"","url":"","visibility":"public"},
+  {"id":"misc-bakebake-2026","type":"misc","title":"『ばけばけXR』の取り組み：没入型技術とAIを活用した妖怪のインタラクティブなデジタルプラットフォーム","authors":["一倉 弘毅","清水 紘輔","干川 未来","池辺 莉々"],"year":2026,"journal":"デジタルアーカイブ学会誌","doi":"10.24506/jsda.9.s2_s226","url":"https://doi.org/10.24506/jsda.9.s2_s226","visibility":"public"},
+  {"id":"misc-achilles-2025","type":"misc","title":"定量的打腱器デバイスを用いたアキレス腱反射についての研究：地域在住者を対象とした予備的調査","authors":["鈴木 康裕","清水 紘輔","門根 秀樹","羽田 康司","鈴木 健嗣"],"year":2025,"journal":"第11回日本糖尿病理学療法学会","doi":"","url":"","visibility":"public"},
+  {"id":"misc-wisspectrum-2025","type":"misc","title":"WISSpectrum: 視点別近傍とCCS軸による文献探索システム","authors":["清水 紘輔","小松 尚平","渡邉 英徳"],"year":2025,"journal":"日本ソフトウェア科学会インタラクティブシステムとソフトウェア研究会 2025","doi":"","url":"","visibility":"public"},
+  {"id":"misc-sf-prototyping-2025","type":"misc","title":"AIによる発見カード生成を通じたSFプロトタイピング想像支援システム","authors":["小松 尚平","清水 紘輔","楊 欽","渡邉 英徳"],"year":2025,"journal":"日本ソフトウェア科学会インタラクティブシステムとソフトウェア研究会 2025","doi":"","url":"","visibility":"public"},
+  {"id":"misc-knot-2025","type":"misc","title":"KNOT ― あいだに現れる像","authors":["清水 紘輔","松原 正樹"],"year":2025,"journal":"NICOGRAPH 2025","doi":"","url":"","visibility":"public"},
+  {"id":"misc-goodnight-diary-2025","type":"misc","title":"おやすみ日記：生体情報を活用し就寝前の自己対話と内省を支援するぬいぐるみ型インターフェース","authors":["土屋 実結","清水 紘輔"],"year":2025,"journal":"SICHI Student Innovation Contest at Human Interface Symposium","doi":"","url":"","visibility":"public"},
+  {"id":"misc-signaling-letter-2025","type":"misc","title":"Signaling Letter: Visualizing Handwriting Dynamics with a Paper-Embedded Microphone","authors":["清水 紘輔","川内野 穂花","小松 尚平"],"year":2025,"journal":"Visual Computing 2025","doi":"","url":"","visibility":"public"},
+  {"id":"misc-emotion-overflow-2025","type":"misc","title":"Emotion Overflow: An Interactive System to Represent Emotion in Fluid Dynamics","authors":["Keita Tsuyuguchi","Kosuke Shimizu","Kenji Suzuki"],"year":2025,"journal":"INTERACTION 2025","doi":"","url":"","visibility":"public"},
+  {"id":"misc-emotion-bridge-2025","type":"misc","title":"Emotion Bridge Design Workshop with My Daily Badge","authors":["Kosuke Shimizu","Max Hanssen","Jackie Shepherd","Seung Hee Lee"],"year":2025,"journal":"International Symposium on Affective Science and Engineering","doi":"10.5057/isase.2025-c000040","url":"https://doi.org/10.5057/isase.2025-c000040","visibility":"public"},
+  {"id":"misc-moodgroove-2024","type":"misc","title":"MoodGroove: テキストと身体動作による対話型音楽生成・編集システム","authors":["土屋 実結","清水 紘輔","鈴木 健嗣"],"year":2024,"journal":"WISS 2024","doi":"","url":"","visibility":"public"},
+  {"id":"misc-yamatouta-2024","type":"misc","title":"大和歌VR Recorder","authors":["清水 紘輔","一倉 弘毅"],"year":2024,"journal":"第29回日本バーチャルリアリティ学会大会論文集","doi":"","url":"","visibility":"public"}
 ]

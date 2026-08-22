@@ -15,19 +15,67 @@
         "id": "T1",
         "title": "体性感覚刺激インターフェースのモードレスデザイン",
         "question": "どのように人間の身体に刺激を送ることで、体験している感覚を誘発することができるのだろうか。",
-        "keywords": ["somatosensory stimulation", "embodied interaction", "modeless interface"]
+        "keywords": ["somatosensory stimulation", "embodied interaction", "modeless interface"],
+        "selectedWorks": [
+          {
+            "id": "T1-work-1",
+            "title": "(編集してください) T1 関連プロジェクト 1",
+            "year": null,
+            "role": "",
+            "description": ""
+          },
+          {
+            "id": "T1-work-2",
+            "title": "(編集してください) T1 関連プロジェクト 2",
+            "year": null,
+            "role": "",
+            "description": ""
+          }
+        ]
       },
       {
         "id": "T2",
         "title": "思い出との再接続を促すユビキタスインターフェース",
         "question": "ユーザーが過去の思い出と再びつながれるよう、さりげなく促すインターフェースをどのように設計すればよいか。",
-        "keywords": ["behavior modeling", "ubiquitous systems", "memory cueing"]
+        "keywords": ["behavior modeling", "ubiquitous systems", "memory cueing"],
+        "selectedWorks": [
+          {
+            "id": "T2-work-1",
+            "title": "(編集してください) T2 関連プロジェクト 1",
+            "year": null,
+            "role": "",
+            "description": ""
+          },
+          {
+            "id": "T2-work-2",
+            "title": "(編集してください) T2 関連プロジェクト 2",
+            "year": null,
+            "role": "",
+            "description": ""
+          }
+        ]
       },
       {
         "id": "T3",
         "title": "目標達成を支援する人間拡張システム",
         "question": "目標の達成を促進するために、人間が本来備えている能力や特性を強化する計算機システムをどのように設計すればよいだろうか。",
-        "keywords": ["artificial intelligence", "human augmentation", "goal support"]
+        "keywords": ["artificial intelligence", "human augmentation", "goal support"],
+        "selectedWorks": [
+          {
+            "id": "T3-work-1",
+            "title": "(編集してください) T3 関連プロジェクト 1",
+            "year": null,
+            "role": "",
+            "description": ""
+          },
+          {
+            "id": "T3-work-2",
+            "title": "(編集してください) T3 関連プロジェクト 2",
+            "year": null,
+            "role": "",
+            "description": ""
+          }
+        ]
       }
     ],
     "relatedInterests": [

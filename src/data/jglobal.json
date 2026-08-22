@@ -1,0 +1,25 @@
+{
+  "jglobalId": "202501013803389508",
+  "updatedAt": "2026-08-12",
+  "sourceUrl": "https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202501013803389508",
+  "affiliation": "University of Tsukuba, School of Informatics, College of Media Arts, Science and Technology",
+  "researchFields": ["Cognitive Sciences", "Learning Support Systems", "Affective Informatics", "Human Interface and Interaction"],
+  "researchKeywords": ["Virtual Reality", "Technology-Enhanced Learning", "Human-Computer Interaction"],
+  "funding": [
+    {"id":"fund-humai-giant-step","title":"The Nippon Foundation HUMAI Program, Giant Step Track","period":"2026–2027"},
+    {"id":"fund-humai-scholarship-a","title":"The Nippon Foundation HUMAI Program, Scholarship A","period":"2025–2026"},
+    {"id":"fund-sica","title":"SICA (Social Impact Creators’ Accelerator) Program","period":"2023–2024"},
+    {"id":"fund-mitohoku","title":"MiTOHOKU Program, Cohort 1","period":"2023–2024"}
+  ],
+  "education": [
+    {"id":"edu-tsukuba","title":"University of Tsukuba — College of Media Arts, Science and Technology","period":"2024–Present"},
+    {"id":"edu-touohgakkan","title":"Yamagata Prefectural Touohgakkan High School — General Course","period":"2021–2024"}
+  ],
+  "career": [
+    {"id":"career-tsinghua","title":"Visiting Researcher, Academy of Arts & Design, Tsinghua University","period":"Aug.–Sep. 2024"}
+  ],
+  "service": [
+    {"id":"service-jsai","title":"National Conference Committee Member, The Japanese Society for Artificial Intelligence","period":"Sep. 2025–Present"}
+  ],
+  "memberships": ["The Japanese Society for Artificial Intelligence", "Virtual Reality Society of Japan", "IEEE", "Information Processing Society of Japan", "ACM"]
+}

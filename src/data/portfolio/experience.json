@@ -1,0 +1,12 @@
+[
+  {
+    "id": "experience-letsplayforpeace",
+    "fileName": "letsplayforpeace_backend_infra.md",
+    "title": "Let's Pray / Play for Peace 2026",
+    "role": "Backend / Infrastructure Engineer",
+    "period": "2025-2026",
+    "url": "https://letsplayforpeace.com/",
+    "description": "Supported backend and infrastructure work for a charity concert project combining classical music performance with audience-participatory real-time visual expression. The work included practical support around web/backend operation, nginx-based serving, and local/on-premise network server setup for event-side systems.",
+    "notes": "This is not positioned as deep production infrastructure specialization, but as hands-on supporting experience with small-scale backend, server, and local network operations."
+  }
+]

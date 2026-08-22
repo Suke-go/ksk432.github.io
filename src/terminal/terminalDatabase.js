@@ -4,6 +4,7 @@ import researchProjects from '../data/researchmap/researchProjects.json';
 import profile from '../data/profile.json';
 import artwork from '../data/portfolio/artwork.json';
 import skills from '../data/portfolio/skills.json';
+import experience from '../data/portfolio/experience.json';
 import inspirations from '../data/portfolio/inspirations.json';
 import scores from '../data/portfolio/scores.json';
 import contact from '../data/portfolio/contact.json';
@@ -63,9 +64,13 @@ const portfolioRecordToFile = (record) => ({
   body: [
     `ID: ${record.id}`,
     `TITLE: ${record.title}`,
+    record.role ? `ROLE: ${record.role}` : null,
     record.kind ? `KIND: ${record.kind}` : null,
+    record.period ? `PERIOD: ${record.period}` : null,
     record.year ? `YEAR: ${record.year}` : null,
+    record.url ? `URL: ${record.url}` : null,
     record.description ? `DESCRIPTION:\n${record.description}` : null,
+    record.notes ? `NOTES:\n${record.notes}` : null,
     record.visibility ? `VISIBILITY: ${record.visibility}` : null
   ]
     .filter(Boolean)
@@ -115,6 +120,7 @@ const filesByDirectory = {
   ),
   artwork: artwork.map(portfolioRecordToFile),
   skills: skills.map(portfolioRecordToFile),
+  experience: experience.map(portfolioRecordToFile),
   contact: contact.map(portfolioRecordToFile),
   inspirations: inspirations.map(portfolioRecordToFile),
   scores: scores.map(portfolioRecordToFile)
@@ -123,7 +129,7 @@ const filesByDirectory = {
 export const terminalDirectories = {
   portfolio: {
     label: 'Portfolio Database Root',
-    children: ['profile', 'researchmap', 'portfolio_records', 'artwork', 'skills', 'contact'],
+    children: ['profile', 'researchmap', 'portfolio_records', 'experience', 'artwork', 'skills', 'contact'],
     hiddenChildren: [
       { name: 'inspirations', flag: 'inspirationsVisible' },
       { name: 'scores', flag: 'scoresVisible' }
@@ -143,7 +149,11 @@ export const terminalDirectories = {
   },
   portfolio_records: {
     label: 'Portfolio-Specific Records',
-    children: ['artwork', 'skills', 'contact']
+    children: ['experience', 'artwork', 'skills', 'contact']
+  },
+  experience: {
+    label: 'Professional Experience',
+    files: filesByDirectory.experience
   },
   publications: {
     label: 'Published Papers',
@@ -185,6 +195,7 @@ export const sectionByDirectory = {
   researchmap: 'research',
   research: 'research',
   portfolio_records: 'home',
+  experience: 'home',
   publications: 'publications',
   presentations: 'research',
   research_projects: 'research',

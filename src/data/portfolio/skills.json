@@ -16,5 +16,23 @@
     "fileName": "research_methods.md",
     "title": "Research Methods",
     "description": "Literature review, experiment planning, and qualitative analysis."
+  },
+  {
+    "id": "skill-backend-infrastructure",
+    "fileName": "backend_infrastructure.md",
+    "title": "Backend / Infrastructure",
+    "description": "Working familiarity with small-scale backend and infrastructure operation: nginx, web server configuration, local/on-premise network servers, and event-side deployment support."
+  },
+  {
+    "id": "skill-openbci-cyton",
+    "fileName": "openbci_cyton.md",
+    "title": "OpenBCI Cyton (BCI)",
+    "description": "Biosignal acquisition with OpenBCI Cyton: electrode setup, signal processing, and BCI prototyping."
+  },
+  {
+    "id": "skill-gaussian-splatting",
+    "fileName": "gaussian_splatting.md",
+    "title": "Gaussian Splatting",
+    "description": "3D scene reconstruction and rendering via Gaussian splatting: capture, training, and viewer integration."
   }
 ]
